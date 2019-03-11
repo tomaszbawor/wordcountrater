@@ -1,21 +1,20 @@
 package com.tbawor.wordcountrater;
 
-import java.io.File;
+import com.tbawor.wordcountrater.cmd.WCRCommandInterpreter;
+
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("No directory given to index.");
-        }
-        final File indexableDirectory = new File(args[0]);
-        //TODO: Index all files in indexableDirectory
+        WCRCommandInterpreter commandInterpeter = new WCRCommandInterpreter(args);
         Scanner keyboard = new Scanner(System.in);
-        while (true) {
-            System.out.print("search> ");
-            final String line = keyboard.nextLine();
-        //TODO: Search indexed files for words in line
+
+        while (commandInterpeter.shouldRun()) {
+            commandInterpeter.printPrompt();
+            final String inputLine = keyboard.nextLine();
+            commandInterpeter.executeCommand(inputLine);
         }
+
     }
 }

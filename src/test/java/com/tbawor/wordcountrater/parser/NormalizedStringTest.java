@@ -1,13 +1,15 @@
 package com.tbawor.wordcountrater.parser;
 
-import org.junit.jupiter.api.Test;
+import com.tbawor.wordcountrater.NormalizedString;
+import org.junit.Test;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class NormalizedStringTest {
+public class NormalizedStringTest {
 
     @Test
-    void shouldRemoveCommasFromEndOfTheString() {
+    public void shouldRemoveCommasFromEndOfTheString() {
         // given
         final String word = "something,";
 
@@ -19,7 +21,7 @@ class NormalizedStringTest {
     }
 
     @Test
-    void shouldRemoveDotsFromEndOfTheString() {
+    public void shouldRemoveDotsFromEndOfTheString() {
         // given
         final String word = "something.";
 
@@ -31,7 +33,7 @@ class NormalizedStringTest {
     }
 
     @Test
-    void shouldRemoveExclamationMarkFromEndOfTheString() {
+    public void shouldRemoveExclamationMarkFromEndOfTheString() {
         // given
         final String word = "something!";
 
@@ -43,7 +45,7 @@ class NormalizedStringTest {
     }
 
     @Test
-    void shouldRemoveQuestionMarkFromEndOfTheString() {
+    public void shouldRemoveQuestionMarkFromEndOfTheString() {
         // given
         final String word = "something?";
 
@@ -55,7 +57,7 @@ class NormalizedStringTest {
     }
 
     @Test
-    void shouldReturnedLowerCaseString() {
+    public void shouldReturnedLowerCaseString() {
         // given
         final String word = "SOMETHING";
 
@@ -64,5 +66,17 @@ class NormalizedStringTest {
 
         // then
         assertThat(normalizedString.getValue()).isEqualTo("something");
+    }
+
+    @Test
+    public void shouldNormalizeSpecialCharsToEmptyString() {
+        // given
+        final String word = "#$%^&*(";
+
+        // when
+        NormalizedString normalizedString = new NormalizedString(word);
+
+        // then
+        assertThat(normalizedString.getValue()).isEqualTo("");
     }
 }
